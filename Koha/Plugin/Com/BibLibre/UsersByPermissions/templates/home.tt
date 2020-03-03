@@ -1,0 +1,13 @@
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha Plugin Users by Permissions</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'patron-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Users by Permissions</div>
+
+<div id="doc3">
+
+[% INCLUDE 'intranet-bottom.inc' %]
