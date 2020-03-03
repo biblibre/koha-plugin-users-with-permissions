@@ -4,10 +4,111 @@
 </head>
 <body>
 [% INCLUDE 'header.inc' %]
-[% INCLUDE 'patron-search.inc' %]
+[% INCLUDE 'cat-search.inc' %]
 
 <div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Users by Permissions</div>
 
 <div id="doc3">
+
+<h2>Superlibarians</h2>
+<table id="table_superlibrarians">
+    <thead>
+        <tr>
+            <th>Details page link</th>
+            <th>Borrowernumber</th>
+            <th>Cardnumber</th>
+            <th>Userid</th>
+            <th>Branch</th>
+            <th>Surname Firstname</th>
+        </tr>
+    </thead> 
+    [% FOREACH superlibrarian IN superlibrarians %]
+        <tr>
+            <td>
+                <a href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% superlibrarian.patron.borrowernumber | uri %]" target="_blank">See details</a>
+            </td>
+            <td>
+                [% superlibrarian.patron.borrowernumber | html %]
+            </td>
+            <td>
+                [% superlibrarian.patron.cardnumber | html %]
+            </td>
+            <td>
+                [% superlibrarian.patron.userid | html %]
+            </td>
+            <td>
+                [% superlibrarian.patron.branchcode | html %]
+            </td>
+            <td>
+                [% superlibrarian.patron.surname | html %] [% superlibrarian.patron.firstname | html %]
+            </td>
+        </tr>
+    [% END %]
+</table>
+
+<h2>Staff users</h2>
+<table id="table_staffs">
+    <thead>
+        <tr>
+            <th>Details page link</th>
+            <th>Borrowernumber</th>
+            <th>Cardnumber</th>
+            <th>Userid</th>
+            <th>Surname Firstname</th>
+            <th>Branch</th>
+            <th>Permissions</th>
+            <th>Sub-permissions</th>
+        </tr>
+    </thead> 
+    [% FOREACH staff IN staffs %]
+        <tr>
+            <td>
+                <a href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% staff.patron.borrowernumber | uri %]" target="_blank">
+                    See details
+                </a>
+            </td>
+            <td>
+                [% staff.patron.borrowernumber | html %]
+            </td>
+            <td>
+                [% staff.patron.cardnumber | html %]
+            </td>
+            <td>
+                [% staff.patron.userid | html %]
+            </td>
+            <td>
+                [% staff.patron.surname | html %] [% staff.patron.firstname | html %]
+            </td>
+            <td>
+                [% staff.patron.branchcode | html %]
+            </td>
+            <td>
+                <ul>
+                [% FOREACH pkey IN staff.userflags.keys.sort %]
+                    [% IF ( staff.userflags.$pkey && !staff.userflags.$pkey.keys ) %]
+                        <li>[% pkey | html %]</li>
+                    [% END %]
+                [% END %]
+                </ul>
+            </td>
+            <td>
+                <ul>
+                [% FOREACH pkey IN staff.userflags.keys.sort %]
+                    [% IF ( staff.userflags.$pkey && staff.userflags.$pkey.keys ) %]
+                        [% SET parentperm = staff.userflags.$pkey %]
+                        <li>[% pkey | html %] :
+                            <ul>
+                            [% FOREACH spkey IN parentperm.keys.sort %]
+                                <li>[% spkey | html %]</li>
+                            [% END %]
+                            </ul>
+                        </li>
+                    [% END %]
+                [% END %]
+                </ul>
+            </td>
+        </tr>
+    [% END %]
+</table>
 
 [% INCLUDE 'intranet-bottom.inc' %]
