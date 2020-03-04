@@ -3,7 +3,7 @@
 [% USE Branches %]
 [% SET footerjs = 1 %]
 [% INCLUDE 'doc-head-open.inc' %]
- <title>Koha Plugin Users with Permissions</title>
+<title>Koha Plugin Users with Permissions</title>
 [% INCLUDE 'doc-head-close.inc' %]
 [% Asset.css("css/datatables.css") | $raw %]
 </head>
@@ -22,7 +22,15 @@
 <table id="table_superlibrarians">
     <thead>
         <tr>
-            <th>Details page link</th>
+            <th></th>
+            <th>Borrowernumber</th>
+            <th>Cardnumber</th>
+            <th>Userid</th>
+            <th>Branch</th>
+            <th>Name</th>
+        </tr>
+        <tr>
+            <th>Actions</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
@@ -33,7 +41,9 @@
     [% FOREACH superlibrarian IN superlibrarians %]
         <tr>
             <td>
-                <a href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% superlibrarian.patron.borrowernumber | uri %]" target="_blank">See details</a>
+                <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% superlibrarian.patron.borrowernumber | uri %]" target="_blank">
+                    <i class="fa fa-list"></i> View details
+                </a>
             </td>
             <td>
                 [% superlibrarian.patron.borrowernumber | html %]
@@ -58,7 +68,17 @@
 <table id="table_staffs">
     <thead>
         <tr>
-            <th>Details page link</th>
+            <th></th>
+            <th>Borrowernumber</th>
+            <th>Cardnumber</th>
+            <th>Userid</th>
+            <th>Name</th>
+            <th>Branch</th>
+            <th>Permissions</th>
+            <th>Sub-permissions</th>
+        </tr>
+        <tr>
+            <th>Actions</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
@@ -71,9 +91,14 @@
     [% FOREACH staff IN staffs %]
         <tr>
             <td>
-                <a href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% staff.patron.borrowernumber | uri %]" target="_blank">
-                    See details
+                <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% staff.patron.borrowernumber | uri %]" target="_blank">
+                    <i class="fa fa-list"></i> View details
                 </a>
+                [% IF ( CAN_user_permissions ) %]
+                    <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/member-flags.pl?member=[% staff.patron.borrowernumber | uri %]" target="_blank">
+                        <i class="fa fa-pencil"></i> Edit permissions
+                    </a>
+                [% END %]
             </td>
             <td>
                 [% staff.patron.borrowernumber | html %]
@@ -124,15 +149,49 @@
 
 [% MACRO jsinclude BLOCK %]
     [% INCLUDE 'datatables.inc' %]
+    [% Asset.js("lib/jquery/plugins/jquery.dataTables.columnFilter.js") | $raw %]
     <script>
         $(document).ready(function() {
-            $("#table_superlibrarians, #table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
+            $("#table_superlibrarians").dataTable($.extend(true, {}, dataTablesDefaults, {
                 "aoColumnDefs": [
                     { "aTargets": [ 0 ], "bSortable": false, "bSearchable": false },
                 ],
                 "aaSorting": [[ 1, "desc" ]],
+                'bAutoWidth': false,
                 "sPaginationType": "four_button",
-            }));
+            } )
+            ).columnFilter({
+                sPlaceHolder: "head:after",
+                aoColumns: [
+                    null,
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                ]
+            });
+            $("#table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
+                "aoColumnDefs": [
+                    { "aTargets": [ 0 ], "bSortable": false, "bSearchable": false },
+                ],
+                "aaSorting": [[ 1, "desc" ]],
+                'bAutoWidth': false,
+                "sPaginationType": "four_button",
+            } )
+            ).columnFilter({
+                sPlaceHolder: "head:after",
+                aoColumns: [
+                    null,
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                ]
+            });
         });
     </script>
 [% END %]
