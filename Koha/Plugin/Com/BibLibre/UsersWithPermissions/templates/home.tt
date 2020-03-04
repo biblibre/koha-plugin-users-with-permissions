@@ -18,6 +18,10 @@
 <div class="row">
 <div class="col-sm-12">
 
+[% UNLESS CAN_user_borrowers_edit_borrowers %]
+    <h2>Sorry, you need permission to edit patrons to use this plugin</h2>
+[% ELSE %]
+
 <h2>Superlibarians</h2>
 <table id="table_superlibrarians">
     <thead>
@@ -44,6 +48,11 @@
                 <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% superlibrarian.patron.borrowernumber | uri %]" target="_blank">
                     <i class="fa fa-list"></i> View details
                 </a>
+                [% IF ( CAN_user_permissions ) %]
+                    <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/member-flags.pl?member=[% staff.patron.borrowernumber | uri %]" target="_blank">
+                        <i class="fa fa-pencil"></i> Edit permissions
+                    </a>
+                [% END %]
             </td>
             <td>
                 [% superlibrarian.patron.borrowernumber | html %]
@@ -194,6 +203,8 @@
             });
         });
     </script>
+[% END %]
+
 [% END %]
 
 [% INCLUDE 'intranet-bottom.inc' %]
