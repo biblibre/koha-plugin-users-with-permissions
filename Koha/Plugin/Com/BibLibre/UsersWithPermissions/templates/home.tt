@@ -1,7 +1,13 @@
+[% USE raw %]
+[% USE Asset %]
+[% USE Branches %]
+[% SET footerjs = 1 %]
 [% INCLUDE 'doc-head-open.inc' %]
  <title>Koha Plugin Users with Permissions</title>
 [% INCLUDE 'doc-head-close.inc' %]
+[% Asset.css("css/datatables.css") | $raw %]
 </head>
+
 <body>
 [% INCLUDE 'header.inc' %]
 [% INCLUDE 'cat-search.inc' %]
@@ -39,7 +45,7 @@
                 [% superlibrarian.patron.userid | html %]
             </td>
             <td>
-                [% superlibrarian.patron.branchcode | html %]
+                [% Branches.GetName(superlibrarian.patron.branchcode) | html %]
             </td>
             <td>
                 [% superlibrarian.patron.surname | html %] [% superlibrarian.patron.firstname | html %]
@@ -82,7 +88,7 @@
                 [% staff.patron.surname | html %] [% staff.patron.firstname | html %]
             </td>
             <td>
-                [% staff.patron.branchcode | html %]
+                [% Branches.GetName(staff.patron.branchcode) | html %]
             </td>
             <td>
                 <ul>
@@ -115,5 +121,20 @@
 
 </div>
 </div>
+
+[% MACRO jsinclude BLOCK %]
+    [% INCLUDE 'datatables.inc' %]
+    <script>
+        $(document).ready(function() {
+            $("#table_superlibrarians, #table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
+                "aoColumnDefs": [
+                    { "aTargets": [ 0 ], "bSortable": false, "bSearchable": false },
+                ],
+                "aaSorting": [[ 1, "desc" ]],
+                "sPaginationType": "four_button",
+            }));
+        });
+    </script>
+[% END %]
 
 [% INCLUDE 'intranet-bottom.inc' %]
