@@ -1,6 +1,5 @@
 [% USE raw %]
 [% USE Asset %]
-[% USE Branches %]
 [% SET footerjs = 1 %]
 [% INCLUDE 'doc-head-open.inc' %]
 <title>Koha Plugin Users with Permissions</title>
@@ -27,18 +26,20 @@
     <thead>
         <tr>
             <th></th>
+            <th>Library</th>
+            <th>Category</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
-            <th>Branch</th>
             <th>Name</th>
         </tr>
         <tr>
             <th>Actions</th>
+            <th>Library</th>
+            <th>Category</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
-            <th>Branch</th>
             <th>Surname Firstname</th>
         </tr>
     </thead> 
@@ -55,6 +56,12 @@
                 [% END %]
             </td>
             <td>
+                [% superlibrarian.patron.library.branchname | html %] ([% superlibrarian.patron.library.branchcode | html %])
+            </td>
+            <td>
+                [% superlibrarian.patron.category.description | html %] ([% superlibrarian.patron.category.categorycode | html %])
+            </td>
+            <td>
                 [% superlibrarian.patron.borrowernumber | html %]
             </td>
             <td>
@@ -62,9 +69,6 @@
             </td>
             <td>
                 [% superlibrarian.patron.userid | html %]
-            </td>
-            <td>
-                [% Branches.GetName(superlibrarian.patron.branchcode) | html %]
             </td>
             <td>
                 [% superlibrarian.patron.surname | html %] [% superlibrarian.patron.firstname | html %]
@@ -78,21 +82,23 @@
     <thead>
         <tr>
             <th></th>
+            <th>Library</th>
+            <th>Category</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
             <th>Name</th>
-            <th>Branch</th>
             <th>Permissions</th>
             <th>Sub-permissions</th>
         </tr>
         <tr>
             <th>Actions</th>
+            <th>Library</th>
+            <th>Category</th>
             <th>Borrowernumber</th>
             <th>Cardnumber</th>
             <th>Userid</th>
             <th>Surname Firstname</th>
-            <th>Branch</th>
             <th>Permissions</th>
             <th>Sub-permissions</th>
         </tr>
@@ -110,6 +116,12 @@
                 [% END %]
             </td>
             <td>
+                [% staff.patron.library.branchname | html %] ([% staff.patron.library.branchcode | html %])
+            </td>
+            <td>
+                [% staff.patron.category.description | html %] ([% staff.patron.category.categorycode | html %])
+            </td>
+            <td>
                 [% staff.patron.borrowernumber | html %]
             </td>
             <td>
@@ -120,9 +132,6 @@
             </td>
             <td>
                 [% staff.patron.surname | html %] [% staff.patron.firstname | html %]
-            </td>
-            <td>
-                [% Branches.GetName(staff.patron.branchcode) | html %]
             </td>
             <td>
                 <ul>
