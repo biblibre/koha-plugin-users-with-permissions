@@ -187,6 +187,7 @@
                     { type: "text" },
                     { type: "text" },
                     { type: "text" },
+                    { type: "text" },
                 ]
             });
             $("#table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
@@ -201,6 +202,7 @@
                 sPlaceHolder: "head:after",
                 aoColumns: [
                     null,
+                    { type: "text" },
                     { type: "text" },
                     { type: "text" },
                     { type: "text" },
