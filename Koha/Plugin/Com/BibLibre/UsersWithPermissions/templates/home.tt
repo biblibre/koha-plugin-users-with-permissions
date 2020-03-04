@@ -1,14 +1,16 @@
 [% INCLUDE 'doc-head-open.inc' %]
- <title>Koha Plugin Users by Permissions</title>
+ <title>Koha Plugin Users with Permissions</title>
 [% INCLUDE 'doc-head-close.inc' %]
 </head>
 <body>
 [% INCLUDE 'header.inc' %]
 [% INCLUDE 'cat-search.inc' %]
 
-<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Users by Permissions</div>
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Users with Permissions</div>
 
-<div id="doc3">
+<div class="main container-fluid">
+<div class="row">
+<div class="col-sm-12">
 
 <h2>Superlibarians</h2>
 <table id="table_superlibrarians">
@@ -110,5 +112,8 @@
         </tr>
     [% END %]
 </table>
+
+</div>
+</div>
 
 [% INCLUDE 'intranet-bottom.inc' %]

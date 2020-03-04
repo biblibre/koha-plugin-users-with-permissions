@@ -1,8 +1,8 @@
-# Koha plugin to list users by there permissions
+# Koha plugin to list users with permissions
 
 ## Presentation
 
-Display permissions and sub-permissions with users having it.
+Display user with permissions and/or sub-permissions.
 
 ## Packaging
 

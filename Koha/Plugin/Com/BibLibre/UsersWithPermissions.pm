@@ -1,4 +1,4 @@
-package Koha::Plugin::Com::BibLibre::UsersByPermissions;
+package Koha::Plugin::Com::BibLibre::UsersWithPermissions;
 
 use Modern::Perl;
 
@@ -11,9 +11,9 @@ use Koha::Patrons;
 our $VERSION = '1.0';
 
 our $metadata = {
-    name            => 'Users by Permissions',
+    name            => 'Users with Permissions',
     author          => 'BibLibre',
-    description     => 'Display users by permissions',
+    description     => 'Display users with permissions',
     date_authored   => '2020-03-01',
     date_updated    => '2020-03-01',
     minimum_version => '18.11.00.000',
@@ -39,34 +39,21 @@ sub tool {
 
     # Superlibrarians
     my @superlibrarians_loop;
-    my $superlibrarian_patrons = Koha::Patrons->search(
-        {
-            flags => 1,
-        },
-        {
-            order_by => { -desc => 'borrowernumber' },
-        }
-    );
+    my $superlibrarian_patrons = Koha::Patrons->search( { flags => 1 } );
     while ( my $superlibrarian_patron = $superlibrarian_patrons->next ) {
         push @superlibrarians_loop, { patron => $superlibrarian_patron };
     }
 
     # Other staff
     my @staffs_loop;
-    my $staff_patrons = Koha::Patrons->search(
-        {
-            flags => { '>' => 0, '!=' => 1 },
-        },
-        {
-            order_by => { -desc => 'flags', -desc => 'borrowernumber' },
-        }
-    );
+    my $staff_patrons = Koha::Patrons->search( { flags => { '>' => 0, '!=' => 1 } } );
     while ( my $staff_patron = $staff_patrons->next ) {
         my $userflags = C4::Auth::getuserflags( $staff_patron->flags, $staff_patron->userid );
-        push @staffs_loop, {
+        push @staffs_loop,
+          {
             patron    => $staff_patron,
             userflags => $userflags,
-        };
+          };
     }
 
     $template->param(
