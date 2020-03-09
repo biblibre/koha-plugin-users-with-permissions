@@ -145,11 +145,10 @@
             <td>
                 <ul>
                 [% FOREACH pkey IN staff.userflags.keys.sort %]
-                    [% IF ( staff.userflags.$pkey && staff.userflags.$pkey.keys ) %]
-                        [% SET parentperm = staff.userflags.$pkey %]
+                    [% IF ( staff.userflags.$pkey.keys ) %]
                         <li>[% pkey | html %] :
                             <ul>
-                            [% FOREACH spkey IN parentperm.keys.sort %]
+                            [% FOREACH spkey IN staff.userflags.$pkey.keys.sort %]
                                 <li>[% spkey | html %]</li>
                             [% END %]
                             </ul>

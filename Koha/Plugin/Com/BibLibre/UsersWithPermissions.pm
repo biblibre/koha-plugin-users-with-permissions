@@ -48,7 +48,7 @@ sub tool {
     my @staffs_loop;
     my $staff_patrons = Koha::Patrons->search( { flags => { '>' => 0, '!=' => 1 } } );
     while ( my $staff_patron = $staff_patrons->next ) {
-        my $userflags = C4::Auth::getuserflags( $staff_patron->flags, $staff_patron->userid );
+        my $userflags = _getuserflags( $staff_patron->flags, $staff_patron->userid );
         push @staffs_loop,
           {
             patron    => $staff_patron,
@@ -62,6 +62,37 @@ sub tool {
     );
 
     return $self->output_html( $template->output() );
+}
+
+# Inspired by C4::Auth::getuserflags
+sub _getuserflags {
+    my $flags  = shift;
+    my $userid = shift;
+    my $dbh    = @_ ? shift : C4::Context->dbh;
+    my $userflags;
+
+    my $all_subperms = C4::Auth::get_all_subpermissions();
+
+    my $sth = $dbh->prepare("SELECT bit, flag, defaulton FROM userflags");
+    $sth->execute;
+
+    while ( my ( $bit, $flag, $defaulton ) = $sth->fetchrow ) {
+        if ( ( $flags & ( 2**$bit ) ) || $defaulton ) {
+            if ( exists $all_subperms->{$flag} ){
+                $userflags->{$flag} = $all_subperms->{$flag}; # add all sub-permissions
+            } else {
+                $userflags->{$flag} = 1; # no sub-permissions
+            }
+        }
+    }
+
+    # get subpermissions and merge with top-level permissions
+    my $user_subperms = C4::Auth::get_user_subpermissions($userid);
+    foreach my $flag ( keys %$user_subperms ) {
+        $userflags->{$flag} = $user_subperms->{$flag};
+    }
+
+    return $userflags;
 }
 
 1;
