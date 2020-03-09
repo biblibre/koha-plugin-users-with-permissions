@@ -137,7 +137,9 @@
                 <ul>
                 [% FOREACH pkey IN staff.userflags.keys.sort %]
                     [% IF ( staff.userflags.$pkey && !staff.userflags.$pkey.keys ) %]
-                        <li>[% pkey | html %]</li>
+                        <li>
+                            <strong>[% pkey | html %]</strong>
+                        </li>
                     [% END %]
                 [% END %]
                 </ul>
@@ -146,12 +148,13 @@
                 <ul>
                 [% FOREACH pkey IN staff.userflags.keys.sort %]
                     [% IF ( staff.userflags.$pkey.keys ) %]
-                        <li>[% pkey | html %] :
-                            <ul>
+                        <li>
+                            <strong>[% pkey | html %]</strong> :
+                            <div>
                             [% FOREACH spkey IN staff.userflags.$pkey.keys.sort %]
-                                <li>[% spkey | html %]</li>
+                                [% spkey | html %][% IF ( ! loop.last ) %], [% END %]
                             [% END %]
-                            </ul>
+                            </div>
                         </li>
                     [% END %]
                 [% END %]
