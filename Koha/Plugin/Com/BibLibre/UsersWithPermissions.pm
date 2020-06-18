@@ -8,14 +8,14 @@ use C4::Context;
 use C4::Auth;
 use Koha::Patrons;
 
-our $VERSION = '1.0';
+our $VERSION = '1.1';
 
 our $metadata = {
     name            => 'Users with Permissions',
     author          => 'BibLibre',
     description     => 'Display users with permissions',
     date_authored   => '2020-03-01',
-    date_updated    => '2020-03-01',
+    date_updated    => '2020-06-18',
     minimum_version => '18.11.00.000',
     maximum_version => undef,
     version         => $VERSION,
