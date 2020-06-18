@@ -8,7 +8,7 @@ use C4::Context;
 use C4::Auth;
 use Koha::Patrons;
 
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 
 our $metadata = {
     name            => 'Users with Permissions',
@@ -30,6 +30,27 @@ sub new {
     my $self = $class->SUPER::new($args);
 
     return $self;
+}
+
+# Mandatory even if does nothing
+sub install {
+    my ( $self, $args ) = @_;
+ 
+    return 1;
+}
+ 
+# Mandatory even if does nothing
+sub upgrade {
+    my ( $self, $args ) = @_;
+ 
+    return 1;
+}
+ 
+# Mandatory even if does nothing
+sub uninstall {
+    my ( $self, $args ) = @_;
+ 
+    return 1;
 }
 
 sub tool {
