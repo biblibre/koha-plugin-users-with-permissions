@@ -189,7 +189,7 @@
                     { "sType": "html", "aTargets" : [ "dt-html" ] }
                 ],
                 "bAutoWidth": false,
-                "sPaginationType": "full"
+                "sPaginationType": "full_numbers"
             }));
             table_superlibrarians.fnAddFilters("dt-filter", 750);
             var table_staffs = $("#table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
@@ -199,7 +199,7 @@
                     { "sType": "html", "aTargets" : [ "dt-html" ] }
                 ],
                 "bAutoWidth": false,
-                "sPaginationType": "full"
+                "sPaginationType": "full_numbers"
             }));
             table_staffs.fnAddFilters("dt-filter", 750);
         });
