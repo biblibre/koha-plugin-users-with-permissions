@@ -94,8 +94,8 @@
             <th>Cardnumber</th>
             <th>Userid</th>
             <th>Name</th>
-            <th>Permissions</th>
-            <th>Sub-permissions</th>
+            <th class="dt-html">Permissions</th>
+            <th class="dt-html">Sub-permissions</th>
             <th class="NoSort">Actions</th>
         </tr>
     </thead>
@@ -166,8 +166,8 @@
                 <td><input type="text" class="dt-filter" data-column_num="3" placeholder="Cardnumber" /></td>
                 <td><input type="text" class="dt-filter" data-column_num="4" placeholder="Userid" /></td>
                 <td><input type="text" class="dt-filter" data-column_num="5" placeholder="Name" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="5" placeholder="Permissions" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="5" placeholder="Sub-permissions" /></td>
+                <td><input type="text" class="dt-filter" data-column_num="6" placeholder="Permissions" /></td>
+                <td><input type="text" class="dt-filter" data-column_num="7" placeholder="Sub-permissions" /></td>
                 <td></td>
             </tr>
         </tfoot>
@@ -185,7 +185,8 @@
             var table_superlibrarians = $("#table_superlibrarians").dataTable($.extend(true, {}, dataTablesDefaults, {
                 "aaSorting": [[ 0, "desc" ]],
                 "aoColumnDefs": [
-                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] }
+                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] },
+                    { "sType": "html", "aTargets" : [ "dt-html" ] }
                 ],
                 "bAutoWidth": false,
                 "sPaginationType": "full"
@@ -194,7 +195,8 @@
             var table_staffs = $("#table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
                 "aaSorting": [[ 0, "desc" ]],
                 "aoColumnDefs": [
-                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] }
+                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] },
+                    { "sType": "html", "aTargets" : [ "dt-html" ] }
                 ],
                 "bAutoWidth": false,
                 "sPaginationType": "full"
