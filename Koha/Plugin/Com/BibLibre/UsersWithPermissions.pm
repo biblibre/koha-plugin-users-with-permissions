@@ -5,17 +5,17 @@ use Modern::Perl;
 use base qw(Koha::Plugins::Base);
 
 use C4::Context;
-use C4::Auth;
+use C4::Auth qw( get_all_subpermissions get_user_subpermissions );
 use Koha::Patrons;
 
-our $VERSION = '1.2';
+our $VERSION = '2.0';
 
 our $metadata = {
     name            => 'Users with Permissions',
     author          => 'BibLibre',
     description     => 'Display users with permissions',
     date_authored   => '2020-03-01',
-    date_updated    => '2020-06-18',
+    date_updated    => '2023-03-30',
     minimum_version => '18.11.00.000',
     maximum_version => undef,
     version         => $VERSION,
