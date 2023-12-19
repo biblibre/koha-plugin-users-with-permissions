@@ -64,7 +64,7 @@
                     <i class="fa fa-list"></i> View details
                 </a>
                 [% IF ( CAN_user_permissions ) %]
-                    <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/member-flags.pl?member=[% staff.patron.borrowernumber | uri %]" target="_blank">
+                    <a class="btn btn-default btn-sm" href="/cgi-bin/koha/members/member-flags.pl?member=[% superlibrarian.patron.borrowernumber | uri %]" target="_blank">
                         <i class="fa fa-pencil"></i> Edit permissions
                     </a>
                 [% END %]
