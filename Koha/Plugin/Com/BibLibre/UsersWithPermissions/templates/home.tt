@@ -24,7 +24,7 @@
     <h2>Sorry, you need permission to edit patrons to use this plugin</h2>
 [% ELSE %]
 
-<h2>Superlibarians</h2>
+<h2><i class="fa fa-bolt fa-fw"></i> Superlibarians</h2>
 <table id="table_superlibrarians">
     <thead>
         <tr>
@@ -71,7 +71,7 @@
     [% END %]
 </table>
 
-<h2>Staff users</h2>
+<h2><i class="fa-solid fa-shield fa-fw"></i> Staff users</h2>
 <table id="table_staffs">
     <thead>
         <tr>
