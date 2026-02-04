@@ -34,7 +34,7 @@
             <th>Cardnumber</th>
             <th>Userid</th>
             <th>Name</th>
-            <th class="NoSort">Actions</th>
+            <th class="NoSort noExport">Actions</th>
         </tr>
     </thead>
     [% FOREACH superlibrarian IN superlibrarians %]
@@ -83,7 +83,7 @@
             <th>Name</th>
             <th class="dt-html">Permissions</th>
             <th class="dt-html">Sub-permissions</th>
-            <th class="NoSort">Actions</th>
+            <th class="NoSort noExport">Actions</th>
         </tr>
     </thead>
     [% FOREACH staff IN staffs %]
