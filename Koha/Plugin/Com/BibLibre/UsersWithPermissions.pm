@@ -8,7 +8,7 @@ use C4::Context;
 use C4::Auth qw( get_all_subpermissions get_user_subpermissions );
 use Koha::Patrons;
 
-our $VERSION = '3.0';
+our $VERSION = '3.1';
 
 our $metadata = {
     name            => 'Users with Permissions',
