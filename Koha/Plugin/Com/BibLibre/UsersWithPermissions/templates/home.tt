@@ -4,8 +4,6 @@
 [% INCLUDE 'doc-head-open.inc' %]
 <title>Koha Plugin Users with Permissions</title>
 [% INCLUDE 'doc-head-close.inc' %]
-[% Asset.css("css/datatables.css") | $raw %]
-<style>input.dt-filter { width : 100%; font-size : 85%; }</style>
 </head>
 
 <body>
@@ -158,6 +156,12 @@
     <script>
         $(document).ready(function() {
             var table_superlibrarians = KohaTable("table_superlibrarians", {
+                "pagingType": "full_numbers",
+                "columnDefs": [
+                    { "orderable": false, "searchable":  false, "targets": [ 'NoSort' ] },
+                ],
+            }, null, true, null, {});
+            var table_superlibrarians = KohaTable("table_staffs", {
                 "pagingType": "full_numbers",
                 "columnDefs": [
                     { "orderable": false, "searchable":  false, "targets": [ 'NoSort' ] },
