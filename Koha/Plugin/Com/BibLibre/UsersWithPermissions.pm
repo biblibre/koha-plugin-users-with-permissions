@@ -8,15 +8,15 @@ use C4::Context;
 use C4::Auth qw( get_all_subpermissions get_user_subpermissions );
 use Koha::Patrons;
 
-our $VERSION = '2.0';
+our $VERSION = '3.0';
 
 our $metadata = {
     name            => 'Users with Permissions',
     author          => 'BibLibre',
     description     => 'Display users with permissions',
     date_authored   => '2020-03-01',
-    date_updated    => '2023-03-30',
-    minimum_version => '18.11.00.000',
+    date_updated    => '2026-02-04',
+    minimum_version => '22.11',
     maximum_version => undef,
     version         => $VERSION,
 };
