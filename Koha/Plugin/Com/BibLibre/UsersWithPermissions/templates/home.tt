@@ -4,8 +4,6 @@
 [% INCLUDE 'doc-head-open.inc' %]
 <title>Koha Plugin Users with Permissions</title>
 [% INCLUDE 'doc-head-close.inc' %]
-[% Asset.css("css/datatables.css") | $raw %]
-<style>input.dt-filter { width : 100%; font-size : 85%; }</style>
 </head>
 
 <body>
@@ -36,7 +34,7 @@
             <th>Cardnumber</th>
             <th>Userid</th>
             <th>Name</th>
-            <th class="NoSort">Actions</th>
+            <th class="NoSort noExport">Actions</th>
         </tr>
     </thead>
     [% FOREACH superlibrarian IN superlibrarians %]
@@ -71,17 +69,6 @@
             </td>
         </tr>
     [% END %]
-        <tfoot>
-            <tr>
-                <td><input type="text" class="dt-filter" data-column_num="0" placeholder="Library" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="1" placeholder="Category" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="2" placeholder="Borrowernumber" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="3" placeholder="Cardnumber" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="4" placeholder="Userid" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="5" placeholder="Name" /></td>
-                <td></td>
-            </tr>
-        </tfoot>
 </table>
 
 <h2>Staff users</h2>
@@ -96,7 +83,7 @@
             <th>Name</th>
             <th class="dt-html">Permissions</th>
             <th class="dt-html">Sub-permissions</th>
-            <th class="NoSort">Actions</th>
+            <th class="NoSort noExport">Actions</th>
         </tr>
     </thead>
     [% FOREACH staff IN staffs %]
@@ -158,54 +145,32 @@
             </td>
         </tr>
     [% END %]
-        <tfoot>
-            <tr>
-                <td><input type="text" class="dt-filter" data-column_num="0" placeholder="Library" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="1" placeholder="Category" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="2" placeholder="Borrowernumber" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="3" placeholder="Cardnumber" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="4" placeholder="Userid" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="5" placeholder="Name" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="6" placeholder="Permissions" /></td>
-                <td><input type="text" class="dt-filter" data-column_num="7" placeholder="Sub-permissions" /></td>
-                <td></td>
-            </tr>
-        </tfoot>
 </table>
 
-</div>
-</div>
+</div><!-- /.col-sm-12 -->
+</div><!-- /.row -->
 
 [% MACRO jsinclude BLOCK %]
     [% INCLUDE 'datatables.inc' %]
-    [% Asset.js("lib/jquery/plugins/jquery.dataTables.columnFilter.js") | $raw %]
-    [% Asset.js("js/table_filters.js") | $raw %]
+    [% INCLUDE 'columns_settings.inc' %]
     <script>
         $(document).ready(function() {
-            var table_superlibrarians = $("#table_superlibrarians").dataTable($.extend(true, {}, dataTablesDefaults, {
-                "aaSorting": [[ 0, "desc" ]],
-                "aoColumnDefs": [
-                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] },
-                    { "sType": "html", "aTargets" : [ "dt-html" ] }
+            var table_superlibrarians = KohaTable("table_superlibrarians", {
+                "pagingType": "full_numbers",
+                "columnDefs": [
+                    { "orderable": false, "searchable":  false, "targets": [ 'NoSort' ] },
                 ],
-                "bAutoWidth": false,
-                "sPaginationType": "full_numbers"
-            }));
-            table_superlibrarians.fnAddFilters("dt-filter", 750);
-            var table_staffs = $("#table_staffs").dataTable($.extend(true, {}, dataTablesDefaults, {
-                "aaSorting": [[ 0, "desc" ]],
-                "aoColumnDefs": [
-                    { "bSortable": false, "bSearchable": false, 'aTargets': [ 'NoSort' ] },
-                    { "sType": "html", "aTargets" : [ "dt-html" ] }
+            }, null, true, null, {});
+            var table_superlibrarians = KohaTable("table_staffs", {
+                "pagingType": "full_numbers",
+                "columnDefs": [
+                    { "orderable": false, "searchable":  false, "targets": [ 'NoSort' ] },
                 ],
-                "bAutoWidth": false,
-                "sPaginationType": "full_numbers"
-            }));
-            table_staffs.fnAddFilters("dt-filter", 750);
+            }, null, true, null, {});
         });
     </script>
 [% END %]
 
-[% END %]
+[% END %][%# CAN_user_borrowers_edit_borrowers %]
 
 [% INCLUDE 'intranet-bottom.inc' %]
